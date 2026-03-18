@@ -1,0 +1,51 @@
+<div class="page">
+  <div class="shell">
+    <div class="layout">
+      <section class="panel left">
+        <h2 class="panelTitle">Add a Task</h2>
+
+        <label class="field">
+          <span class="labelText">Title</span>
+          <input class="input" [(ngModel)]="title" placeholder="Title">
+        </label>
+
+        <label class="field">
+          <span class="labelText">Description</span>
+          <textarea class="textarea" [(ngModel)]="description" placeholder="Description"></textarea>
+        </label>
+        <label class="field">
+          <button class="primaryBtn" (click)="addTask()" [disabled]=" !title.trim()">
+            Add
+          </button>
+        </label>
+      </section>
+
+      <div class="divider" aria-hidden="true"></div>
+
+      <section class="panel right">
+        <div class="tasksHeader">
+          <h2 class="panelTitle">Tasks</h2>
+          <span class="count">{{tasks.length}}</span>
+        </div>
+
+        <div class="tasksList">
+          <div class="taskCard" *ngFor="let task of tasks">
+            <div class="taskText">
+              <h3 class="taskTitle">{{task.title}}</h3>
+              <p class="taskDesc">{{task.description}}</p>
+            </div>
+            <button class="doneBtn" (click)="done(task.id)">Done</button>
+          </div>
+
+          <div class="empty" *ngIf="tasks.length === 0">
+            No tasks created yet.
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" *ngIf="loading | async">
+  <div class="overlayCard">Loading...</div>
+</div>
